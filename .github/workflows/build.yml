@@ -15,7 +15,8 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y python3-pip cmake ninja-build gperf \
+          sudo apt install -y \
+            python3-pip cmake ninja-build gperf \
             device-tree-compiler wget xz-utils file git
 
       - name: Install west
@@ -23,26 +24,20 @@ jobs:
           pip3 install --user west
           echo "$HOME/.local/bin" >> $GITHUB_PATH
 
-      - name: Initialize ZMK workspace
+      - name: Initialize workspace
         run: |
-          west init -m https://github.com/zmkfirmware/zmk zmk
+          west init -l config
 
-      - name: Update west modules
-        working-directory: zmk
+      - name: Update modules
         run: |
           west update
 
-      - name: Copy config
-        run: |
-          cp -r config zmk/
-
       - name: Build firmware
-        working-directory: zmk
         run: |
-          west build -b nice_nano_v2 -- -DSHIELD=emh_badge
+          west build -b nice_nano_v2 -s zmk/app -- -DSHIELD=emh_badge
 
       - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
           name: nice_nano_v2-emh_badge-zmk
-          path: zmk/build/zephyr/zmk.uf2
+          path: build/zephyr/zmk.uf2
