@@ -1,0 +1,17 @@
+name: Build ZMK firmware
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout config
+        uses: actions/checkout@v4
+
+      - name: Build firmware
+        uses: zmkfirmware/zmk-build-action@v1
+        with:
+          board: nice_nano_v2
