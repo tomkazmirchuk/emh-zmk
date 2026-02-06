@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build firmware
-        uses: zmkfirmware/zmk-build-action@v1
+        uses: zmkfirmware/zmk-build-action@v1.2
         with:
           board: nice_nano_v2
           shield: emh_badge
