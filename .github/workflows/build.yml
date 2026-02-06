@@ -26,6 +26,14 @@ jobs:
       - name: Clone ZMK
         run: |
           git clone https://github.com/zmkfirmware/zmk.git zmk
+
+      - name: Initialize west workspace
+        run: |
+          cd zmk
+          west init -l .
+
+      - name: Update west modules
+        run: |
           cd zmk
           west update
 
