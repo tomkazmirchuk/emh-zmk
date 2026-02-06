@@ -28,13 +28,13 @@ jobs:
           git clone https://github.com/zmkfirmware/zmk.git zmk
 
       - name: Initialize west workspace
+        working-directory: zmk
         run: |
-          cd zmk
           west init -l .
 
       - name: Update west modules
+        working-directory: zmk
         run: |
-          cd zmk
           west update
 
       - name: Copy config
@@ -42,8 +42,8 @@ jobs:
           cp -r config zmk/
 
       - name: Build firmware
+        working-directory: zmk
         run: |
-          cd zmk
           west build -b nice_nano_v2 -- -DSHIELD=emh_badge
 
       - name: Upload firmware
