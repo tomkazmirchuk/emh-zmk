@@ -23,14 +23,9 @@ jobs:
           pip3 install --user west
           echo "$HOME/.local/bin" >> $GITHUB_PATH
 
-      - name: Clone ZMK
+      - name: Initialize ZMK workspace
         run: |
-          git clone https://github.com/zmkfirmware/zmk.git zmk
-
-      - name: Initialize west workspace
-        working-directory: zmk
-        run: |
-          west init -l .
+          west init -m https://github.com/zmkfirmware/zmk zmk
 
       - name: Update west modules
         working-directory: zmk
